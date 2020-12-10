@@ -105,7 +105,11 @@ def RemoteTrainer(estimator, metadata, keras_utils, run_id, dataset_idx):
         k.backend.set_floatx(floatx)
 
         hvd = get_horovod()
+
+        print("BEFORE hvd.init")
         hvd.init()
+        print("AFTER hvd.init")
+
         pin_gpu(hvd, tf, k)
 
         if not user_shuffle_buffer_size:
