@@ -106,6 +106,11 @@ def RemoteTrainer(estimator, metadata, keras_utils, run_id, dataset_idx):
 
         hvd = get_horovod()
 
+        from remote_pdb import RemotePdb
+        pdb_port = 19990 + hvd.rank()
+        print("Remote PDB port = %d" % pdb_port)
+        RemotePdb('localhost', ).set_trace()
+
         print("BEFORE hvd.init")
         hvd.init()
         print("AFTER hvd.init")
